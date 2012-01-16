@@ -9,11 +9,11 @@ count = 1
 newJSON = 'test'
 begin
 http.start do |http|
-   req = Net::HTTP::Get.new('/search.json?query=skip&page=' + count.to_s)
+   req = Net::HTTP::Get.new('/people?query=bob%40test.com&page=' + count.to_s)
 
    # we make an HTTP basic auth by passing the
    # username and password
-   req.basic_auth 'skip@something.net', 'password'
+   req.basic_auth 'skip@techassistant.net', 'password'
    resp, data = http.request(req)
    newJSON = JSON.parse(data)
    
