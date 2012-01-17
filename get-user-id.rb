@@ -15,20 +15,19 @@ def skippy (email)
        req.basic_auth 'skip@techassistant.net', 'password'
        resp, data = http.request(req)
        
-        print resp
-       
-       newJSON = JSON.parse(data)
-    if Net::HTTPOK
-       if newJSON.length > 0
+        print data
+    if Net::HTTPOK == true 
+        newJSON = JSON.parse(data)
+        if newJSON.length > 0
             pp newJSON
             newJSON.each do |userID|
                 print userID['id']
-                end
+            end
         else
           print 'none found
           '
-         end
-      end
+        end
+       end
     end 
 end
 skippy('bob@test.com')
