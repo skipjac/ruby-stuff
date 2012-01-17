@@ -9,7 +9,7 @@ count = 1
 newJSON = 'test'
 begin
 http.start do |http|
-   req = Net::HTTP::Get.new('/people?query=bob%40test.com&page=' + count.to_s)
+   req = Net::HTTP::Get.new('/people.json?query=bob%40test.com&page=' + count.to_s)
 
    # we make an HTTP basic auth by passing the
    # username and password
@@ -21,7 +21,7 @@ http.start do |http|
       # pp newJSON[0]
       newJSON.each do |test|
         if test['email']
-          pp test
+            print test['id']
         end
         
       end
