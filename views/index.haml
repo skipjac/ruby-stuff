@@ -1,0 +1,21 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
+  %head
+    %title
+      = @title
+  %body
+    %form{:name => "test", id => "test", :action => "/bar", :method => "post", :enctype => "text/plain"}
+      %input{:type=>'text', :size=>40, :name=>'title', :id=>'todo-title'}
+      %input{:type=>'submit', :value=>'New Todo'}
+    - (@start...@end).each do |i|
+      - test = @title + i.to_s()
+      %p= test
+    %p See, I can count!
+    %p= find_and_preserve("Foo\n<pre>Bar\nBaz</pre>")
+    %p new options 
+    %div#content
+      %div.art
+        #title 
+          %a{:href => 'http://franschocolates.com'} home
+        #entry
+          = session[:value]
