@@ -8,13 +8,13 @@ require 'nokogiri'
 
 class Zenuser
   include HTTParty
-  base_uri 'skipjack.zendesk.com'
+  base_uri 'https://engineyard.zendesk.com'
   headers 'content-type'  => 'application/json'
   def initialize(u, p)
       @auth = {:username => u, :password => p}
     end
   def post(f, t)
-    json = JSON.generate "entry"=>{"forum_id"=>"20578042","title"=>f,"text"=>t}
+    json = JSON.generate "entry"=>{"forum_id"=>"20577161","title"=>f,"text"=>t}
     options = { :body => json, :basic_auth => @auth}
     #print options
     self.class.post('/api/v1/entries.json', options)
@@ -22,12 +22,12 @@ class Zenuser
   
 end
 
-x = Zenuser.new( 'skip@techassistant.net/token', 'token')
+x = Zenuser.new( 'email@gmail.com/token', 'token')
 
 
   
 
-FileUtils.cd('/Users/skipmoore/Documents/Zendesk/engineyard/ey-docs/pages1')
+FileUtils.cd('/Users/skipmoore/Documents/Zendesk/engineyard/engineyard/pages')
 print FileUtils.pwd()
 files = Dir.glob('*.html')
 files.each do |s|
@@ -45,5 +45,7 @@ files.each do |s|
   pp data.headers
   if data.headers['status']== '201 Created'
           print data.headers['location'] + "\n"
+        else
+          print data.headers['status'] + "\n"
     end
 end

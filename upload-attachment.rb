@@ -20,9 +20,9 @@ class Zenuser
   
 end
 
-x = Zenuser.new( 'skip@techassistant.net/token', 'token')
+x = Zenuser.new( 'email@gmail.com/token', 'token')
 
-FileUtils.cd('/Users/skipmoore/Documents/Zendesk/engineyard/ey-docs/images')
+FileUtils.cd('/Users/skipmoore/Documents/Zendesk/engineyard/engineyard/images')
 print FileUtils.pwd()
 files = Dir.glob('*.png')
 files.each do |s|
@@ -30,10 +30,14 @@ files.each do |s|
   #print titleHTML + "  "
   file = File.open(s, "rb")
   bodyHTML = file.read
+  print titleHTML + "\n"
   data = x.post(titleHTML, bodyHTML)
-  #pp data.headers
+  pp data.headers
+  print "\n"
   if data.headers['status']== '200 OK'
     newJSON = JSON.parse(data.body)
     print newJSON['url'] + "\n"
-    end
+  else
+    print data.headers['status'] + "\n"
+  end
 end
