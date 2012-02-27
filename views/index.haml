@@ -4,9 +4,19 @@
     %title
       = @title
   %body
-    %form{:name => "test", id => "test", :action => "/bar", :method => "post", :enctype => "text/plain"}
-      %input{:type=>'text', :size=>40, :name=>'title', :id=>'todo-title'}
-      %input{:type=>'submit', :value=>'New Todo'}
+    %form{:name => "test", id => "test", :action => "/bar", :method => "post", :enctype => "application/json"}
+      %fieldset
+        %ol
+          %li
+            %label{:for => "name"} Name:
+            %input{:type => "text", :name => "name", :class => "text"}
+          %li
+            %label{:for => "mail"} email:
+            %input{:type => "text", :name => "mail", :class => "text"}
+          %li
+            %label{:for => "body"} Message:
+            %textarea{:name => "body"}
+        %input{:type => "submit", :value => "Send", :class => "button"}
     - (@start...@end).each do |i|
       - test = @title + i.to_s()
       %p= test

@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'Haml'
+require 'get-user-id'
 set :haml, :format => :html5
 #set :views, settings.root + '/templates'
 
@@ -20,6 +21,9 @@ get '/:value' do
 end
 
 post '/bar' do 
-  puts request.body.read
+  #puts request.body.read
   puts @params.inspect
+  puts params[:mail]
+  email = params[:mail]
+    skippy(email)
 end
