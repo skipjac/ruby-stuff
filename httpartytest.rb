@@ -6,7 +6,7 @@ require 'json'
 class Zenuser
   include HTTParty
   base_uri 'skipjack.zendesk.com'
-  basic_auth 'skip@techassistant.net', 'ftn4ver'
+  basic_auth 'skip@techassistant.net', 'test'
 end
 
 data =  Zenuser.get('/people.json?query=bob%40test.com')
