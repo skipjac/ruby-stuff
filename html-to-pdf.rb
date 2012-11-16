@@ -10,7 +10,7 @@ require 'uri'
 
 class Zenuser
   include HTTParty
-  base_uri 'https://skipjack.zendesk.com'
+  base_uri 'https://support.zendesk.com'
   headers 'content-type'  => 'application/json'
   def initialize(u, p)
       @auth = {:username => u, :password => p}
@@ -22,16 +22,31 @@ class Zenuser
   end
 
 end
-
-def findTagAbles(path)
-  x = Zenuser.new( 'skip@techassistant.net', '')
+x = Zenuser.new( 'skip@te.com', '')
+def getTopic(path, x)
   resp = x.get_entries(path)
   jsonResp = JSON.parse(resp.body)
   y = jsonResp['topic']
-  print y['body']
+  title = y['title'].gsub(/\s/,'-').gsub(/\//,'-')
   kit = PDFKit.new(y['body'])
   kit.to_pdf
-  kit.to_file('/Users/smoore/Documents/Zendesk/ruby/ruby-stuff/' + y['title'].to_s + '.pdf')
+  kit.to_file('/Users/smoore/Documents/Zendesk/ruby/ruby-stuff/' + title + '.pdf')
 end
 
-findTagAbles('/api/v2/topics/21010498.json')
+def getList(x, path)
+  
+  begin
+    resp = x.get_entries(path)
+    jsonResp = JSON.parse(resp.body)
+    jsonResp['topics'].each do |obj|
+      uri = URI::parse(obj['url'])
+      getTopic(uri.path, x)
+      pp uri.path
+    end
+    if jsonResp['next_page'] != nil
+      next_page = URI(jsonResp['next_page'])
+    end
+    path = next_page.path + '?' + next_page.query
+  end while jsonResp['next_page'] != nil
+end
+getList(x, '/api/v2/topics.json')
