@@ -20,8 +20,9 @@ class Zenuser
     #print options
     self.class.get(loc, options)
   end
+  
 	def update_tags(loc, tags)
-		options = {:basic_auth => @auth}
+		#options = {:basic_auth => @auth}
 		json = JSON.generate "topic"=>{"tags"=>tags}
     options = { :body => json, :basic_auth => @auth}
 		self.class.put(loc, options)
